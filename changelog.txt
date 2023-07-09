@@ -8,3 +8,7 @@ bugfixes
 	-improved waitforvblank function, saving battery life and increasing fast forward speed (DizzyEggg)
 	-ground effects are applied when you exit surfing (ghoulslash)
 	-allow player to change direction while moving up or down (cbt)
+
+modernized battles
+	-fairy type
+	-physical special split
