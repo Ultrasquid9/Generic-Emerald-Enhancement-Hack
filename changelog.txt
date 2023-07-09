@@ -10,5 +10,6 @@ bugfixes
 	-allow player to change direction while moving up or down (cbt)
 
 modernized battles
-	-fairy type
-	-physical special split
+	-fairy type (Lunos)
+	-physical special split (voloved)
+	-exp for catching Pokemon (Lunos)
