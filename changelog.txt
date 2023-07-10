@@ -15,6 +15,14 @@ better running
 	-run without running shoes
 	-no more running shoes tutorial
 
+faster menus
+	-prompt for reusing repels (ExpoSeed)
+	-keyboard auto-switches to lowercase (Jaizu)
+	-faster text speed (ellabrella)
+	-removed the extra save confirmation (Fyreire)
+	-using medicine no longer returns you to the bag automatically (ghoulslash)
+	-"move mons" is now the first option in the storage system
+
 new hotkeys
 	-pressing b in a battle moves your cursor to "run" (voloved)
 	-pressing select while hovering over a pokemon lets you swap its slot (Lunos)
@@ -23,15 +31,10 @@ new hotkeys
 misc improvements
 	-reusable TMs (Lunos)
  	-forgettable HMs (Lunos, thespbgamer, Jaizu)
-	-prompt for reusing repels (ExpoSeed)
 	-more bonus premier balls, like in LGPE (BuffelSalt)
-	-keyboard auto-switches to lowercase (Jaizu)
-	-faster text speed (ellabrella)
-	-removed the extra save confirmation (Fyreire)
-	-using medicine no longer returns you to the bag automatically (ghoulslash)
-	-"move mons" is now the first option in the storage system
 	-name rater can change the names of non-OT pokemon
 	-larger visibility radius in darkness
+	-stereo sound and set style are now enabled by default
 
 bugfixes
 	-general bugfixes (built into decomp)
