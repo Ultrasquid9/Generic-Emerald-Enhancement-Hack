@@ -17,6 +17,7 @@ better running
 
 new hotkeys
 	-pressing b in a battle moves your cursor to "run" (voloved)
+	-pressing select while hovering over a pokemon lets you swap its slot (Lunos)
 	-pressing start while hovering over a pokemon changes its nickname
 
 misc improvements
@@ -29,6 +30,7 @@ misc improvements
 	-using medicine no longer returns you to the bag automatically (ghoulslash)
 	-"move mons" is now the first option in the storage system
 	-name rater can change the names of non-OT pokemon
+	-larger visibility radius in darkness
 
 bugfixes
 	-general bugfixes (built into decomp)
