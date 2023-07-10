@@ -1,14 +1,3 @@
-better running
-	-run indoors
-	-run without running shoes
-	-no more running shoes tutorial
-
-bugfixes
-	-general bugfixes (built into decomp)
-	-improved waitforvblank function, saving battery life and increasing fast forward speed (DizzyEggg)
-	-ground effects are applied when you exit surfing (ghoulslash)
-	-allow player to change direction while moving up or down (cbt)
-
 modernized battles
 	-fairy type (Lunos)
 	-physical special split (voloved)
@@ -21,9 +10,22 @@ better encounters
 	-some national dex pokemon can be found throughout the game
 	-starters can be caught in petalburg, jagged pass, and route 119
 
+better running
+	-run indoors
+	-run without running shoes
+	-no more running shoes tutorial
+
+hotkeys
+	-pressing b in a battle moves your cursor to "run" (voloved)
+
 misc modernizations
 	-reusable TMs (Lunos)
  	-forgettable HMs (Lunos, thespbgamer, Jaizu)
 	-prompt for reusing repels (ExpoSeed)
 	-faster text speed (ellabrella)
 
+bugfixes
+	-general bugfixes (built into decomp)
+	-improved waitforvblank function, saving battery life and increasing fast forward speed (DizzyEggg)
+	-ground effects are applied when you exit surfing (ghoulslash)
+	-allow player to change direction while moving up or down (cbt)
