@@ -27,6 +27,7 @@ misc improvements
 	-more bonus premier balls, like in LGPE (BuffelSalt)
 	-keyboard auto-switches to lowercase (Jaizu)
 	-faster text speed (ellabrella)
+	-removed the extra save confirmation (Fyreire)
 	-using medicine no longer returns you to the bag automatically (ghoulslash)
 	-"move mons" is now the first option in the storage system
 	-name rater can change the names of non-OT pokemon
