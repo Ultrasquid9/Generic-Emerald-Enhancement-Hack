@@ -13,7 +13,16 @@ modernized battles
 	-fairy type (Lunos)
 	-physical special split (voloved)
 	-exp for catching Pokemon (Lunos)
+	-faster hp drain (SatoMew)
+	-no more low hp beeping
+
+better encounters
+	-entirely new encounter table, inspired by ORAS
+	-some national dex pokemon can be found throughout the game
+	-starters can be caught in petalburg, jagged pass, and route 119
 
 misc modernizations
 	-reusable TMs (Lunos)
 	-prompt for reusing repels (ExpoSeed)
+	-faster text speed (ellabrella)
+
