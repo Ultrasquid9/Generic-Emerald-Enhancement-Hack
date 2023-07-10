@@ -17,12 +17,14 @@ better running
 
 hotkeys
 	-pressing b in a battle moves your cursor to "run" (voloved)
+	-pressing start while hovering over a pokemon changes its nickname
 
-misc modernizations
+misc improvements
 	-reusable TMs (Lunos)
  	-forgettable HMs (Lunos, thespbgamer, Jaizu)
 	-prompt for reusing repels (ExpoSeed)
 	-faster text speed (ellabrella)
+	-name rater can change the names of non-OT pokemon
 
 bugfixes
 	-general bugfixes (built into decomp)

@@ -63,6 +63,7 @@
 #include "trade.h"
 #include "union_room.h"
 #include "window.h"
+#include "naming_screen.h"
 #include "constants/battle.h"
 #include "constants/battle_frontier.h"
 #include "constants/field_effects.h"
@@ -341,6 +342,7 @@ static void Task_HandleSelectionMenuInput(u8);
 static void CB2_ShowPokemonSummaryScreen(void);
 static void UpdatePartyToBattleOrder(void);
 static void CB2_ReturnToPartyMenuFromSummaryScreen(void);
+static void CB2_ReturnToPartyMenuFromNicknameScreen(u8);
 static void SlidePartyMenuBoxOneStep(u8);
 static void Task_SlideSelectedSlotsOffscreen(u8);
 static void SwitchPartyMon(void);
@@ -1452,6 +1454,28 @@ static void Task_HandleCancelChooseMonYesNoInput(u8 taskId)
     }
 }
 
+static void CB2_ReturnToPartyMenuFromNicknameScreen(u8 lastAccessedSlot)
+{
+    gPaletteFade.bufferTransferDisabled = TRUE;
+    gPartyMenu.slotId = lastAccessedSlot;
+    InitPartyMenu(gPartyMenu.menuType, KEEP_PARTY_LAYOUT, gPartyMenu.action, TRUE, PARTY_MSG_NONE, Task_HandleChooseMonInput, gPartyMenu.exitCallback);
+}
+
+static void ChangePokemonNicknamePartyScreen_CB(void)
+{
+    u8 lastAccessedSlot = GetCursorSelectionMonId();
+
+    SetMonData(&gPlayerParty[gSpecialVar_0x8004], MON_DATA_NICKNAME, gStringVar2);
+    CB2_ReturnToPartyMenuFromNicknameScreen(lastAccessedSlot);
+}
+
+static void ChangePokemonNicknamePartyScreen(void)
+{
+    GetMonData(&gPlayerParty[gSpecialVar_0x8004], MON_DATA_NICKNAME, gStringVar3);
+    GetMonData(&gPlayerParty[gSpecialVar_0x8004], MON_DATA_NICKNAME, gStringVar2);
+    DoNamingScreen(NAMING_SCREEN_NICKNAME, gStringVar2, GetMonData(&gPlayerParty[gSpecialVar_0x8004], MON_DATA_SPECIES, NULL), GetMonGender(&gPlayerParty[gSpecialVar_0x8004]), GetMonData(&gPlayerParty[gSpecialVar_0x8004], MON_DATA_PERSONALITY, NULL), ChangePokemonNicknamePartyScreen_CB);
+}
+
 static u16 PartyMenuButtonHandler(s8 *slotPtr)
 {
     s8 movementDir;
@@ -1487,7 +1511,21 @@ static u16 PartyMenuButtonHandler(s8 *slotPtr)
     }
 
     if (JOY_NEW(START_BUTTON))
-        return START_BUTTON;
+    {
+        if (!IsTradedMon(&gPlayerParty[gPartyMenu.slotId]))
+        {
+            PlaySE(SE_SELECT);
+            gSpecialVar_0x8004 = *slotPtr;
+            sPartyMenuInternal->exitCallback = ChangePokemonNicknamePartyScreen;
+            Task_ClosePartyMenu(0);
+            return START_BUTTON;
+        }
+        else
+        {
+            PlaySE(SE_FAILURE);
+            return START_BUTTON;
+        }
+    }
 
     if (movementDir)
     {
