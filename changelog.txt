@@ -13,3 +13,5 @@ modernized battles
 	-fairy type (Lunos)
 	-physical special split (voloved)
 	-exp for catching Pokemon (Lunos)
+
+reusable TMs (Lunos)
