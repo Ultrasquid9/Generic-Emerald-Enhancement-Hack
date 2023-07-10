@@ -23,6 +23,7 @@ better encounters
 
 misc modernizations
 	-reusable TMs (Lunos)
+ 	-forgettable HMs (Lunos, thespbgamer, Jaizu)
 	-prompt for reusing repels (ExpoSeed)
 	-faster text speed (ellabrella)
 
