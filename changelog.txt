@@ -14,4 +14,6 @@ modernized battles
 	-physical special split (voloved)
 	-exp for catching Pokemon (Lunos)
 
-reusable TMs (Lunos)
+misc modernizations
+	-reusable TMs (Lunos)
+	-prompt for reusing repels (ExpoSeed)
