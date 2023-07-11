@@ -8,10 +8,12 @@ modernized battles
 	-update pokemon to match their gen 9 stats
 	-no more low hp beeping
 
-better encounters
+more pokemon available
 	-entirely new encounter table, inspired by ORAS
 	-some national dex pokemon can be found throughout the game
 	-starters can be caught in petalburg, jagged pass, and route 119
+	-evolve trade evos through level up or by using their respective item
+	-feebas can be found on all water tiles in route 119 (voloved)
 
 better running
 	-run indoors
