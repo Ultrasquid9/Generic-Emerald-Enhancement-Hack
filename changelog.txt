@@ -14,6 +14,7 @@ more pokemon available
 	-starters can be caught in petalburg, jagged pass, and route 119
 	-evolve trade evos through level up or by using their respective item
 	-feebas can be found on all water tiles in route 119 (voloved)
+	-added chain fishing (ghoulslash)
 
 better running
 	-run indoors
