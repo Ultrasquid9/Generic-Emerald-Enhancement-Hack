@@ -44,5 +44,6 @@ misc improvements
 bugfixes
 	-general bugfixes (built into decomp)
 	-improved waitforvblank function, saving battery life and increasing fast forward speed (DizzyEggg)
+	-remove move grammar tables, which are unused in the English translation (FieryMewtwo)
 	-ground effects are applied when you exit surfing (ghoulslash)
 	-allow player to change direction while moving up or down (cbt)
