@@ -5,6 +5,7 @@ modernized battles
 	-faster hp drain (SatoMew)
 	-port of Pokeemerald-Expansion learnsets (RHHideout team)
 	-update moves to match their gen 9 stats
+	-update pokemon to match their gen 9 stats
 	-no more low hp beeping
 
 better encounters
