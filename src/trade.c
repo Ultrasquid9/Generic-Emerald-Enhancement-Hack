@@ -423,7 +423,7 @@ static void InitTradeMenu(void)
         FillBgTilemapBufferRect(0, 0, 0, 0, DISPLAY_TILE_WIDTH, DISPLAY_TILE_HEIGHT, 15);
         LoadUserWindowBorderGfx_(0, 20, BG_PLTT_ID(12));
         LoadUserWindowBorderGfx(2, 1, BG_PLTT_ID(14));
-        LoadMonIconPalettes();
+        // LoadMonIconPalettes();
         sTradeMenu->bufferPartyState = 0;
         sTradeMenu->callbackId = CB_MAIN_MENU;
         sTradeMenu->neverRead_70 = 0;
@@ -448,6 +448,7 @@ static void CB2_CreateTradeMenu(void)
     struct SpriteTemplate temp;
     u8 id;
     u32 xPos;
+    u16 paletteData[16*2]; // temporarily holds decompressed palettes
 
     switch (gMain.state)
     {
@@ -564,25 +565,36 @@ static void CB2_CreateTradeMenu(void)
         for (i = 0; i < sTradeMenu->partyCounts[TRADE_PLAYER]; i++)
         {
             struct Pokemon *mon = &gPlayerParty[i];
-            sTradeMenu->partySpriteIds[TRADE_PLAYER][i] = CreateMonIcon(GetMonData(mon, MON_DATA_SPECIES_OR_EGG),
+            struct SpritePalette palette = {.data = paletteData, .tag = 56000 + i};
+            u32 index;
+            LZDecompressWram(GetMonFrontSpritePal(mon), paletteData);
+            index = LoadSpritePalette(&palette);
+            sTradeMenuData->partySpriteIds[TRADE_PLAYER][i] = CreateMonIcon(GetMonData(mon, MON_DATA_SPECIES_OR_EGG),
                                                          SpriteCB_MonIcon,
                                                          (sTradeMonSpriteCoords[i][0] * 8) + 14,
                                                          (sTradeMonSpriteCoords[i][1] * 8) - 12,
                                                          1,
                                                          GetMonData(mon, MON_DATA_PERSONALITY),
                                                          TRUE);
+
+            gSprites[sTradeMenuData->partySpriteIds[TRADE_PLAYER][i]].oam.paletteNum = index;
         }
 
         for (i = 0; i < sTradeMenu->partyCounts[TRADE_PARTNER]; i++)
         {
             struct Pokemon *mon = &gEnemyParty[i];
-            sTradeMenu->partySpriteIds[TRADE_PARTNER][i] = CreateMonIcon(GetMonData(mon, MON_DATA_SPECIES_OR_EGG, NULL),
+            struct SpritePalette palette = {.data = paletteData, .tag = 56000 + i + PARTY_SIZE};
+            u32 index;
+            LZDecompressWram(GetMonFrontSpritePal(mon), paletteData);
+            index = LoadSpritePalette(&palette);
+            sTradeMenuData->partySpriteIds[TRADE_PARTNER][i] = CreateMonIcon(GetMonData(mon, MON_DATA_SPECIES_OR_EGG, NULL),
                                                          SpriteCB_MonIcon,
                                                          (sTradeMonSpriteCoords[i + PARTY_SIZE][0] * 8) + 14,
                                                          (sTradeMonSpriteCoords[i + PARTY_SIZE][1] * 8) - 12,
                                                          1,
                                                          GetMonData(mon, MON_DATA_PERSONALITY),
                                                          FALSE);
+            gSprites[sTradeMenuData->partySpriteIds[TRADE_PARTNER][i]].oam.paletteNum = index;
         }
         gMain.state++;
         break;
@@ -712,6 +724,7 @@ static void CB2_ReturnToTradeMenu(void)
     struct SpriteTemplate temp;
     u8 id;
     u32 xPos;
+    u16 paletteData[16*2]; // temporarily holds decompressed palettes
 
     switch (gMain.state)
     {
@@ -755,25 +768,35 @@ static void CB2_ReturnToTradeMenu(void)
         for (i = 0; i < sTradeMenu->partyCounts[TRADE_PLAYER]; i++)
         {
             struct Pokemon *mon = &gPlayerParty[i];
-            sTradeMenu->partySpriteIds[TRADE_PLAYER][i] = CreateMonIcon(GetMonData(mon, MON_DATA_SPECIES_OR_EGG, NULL),
+            struct SpritePalette palette = {.data = paletteData, .tag = 56000 + i};
+            u32 index;
+            LZDecompressWram(GetMonFrontSpritePal(mon), paletteData);
+            index = LoadSpritePalette(&palette);
+            sTradeMenuData->partySpriteIds[TRADE_PLAYER][i] = CreateMonIcon(GetMonData(mon, MON_DATA_SPECIES_OR_EGG, NULL),
                                                          SpriteCB_MonIcon,
                                                          (sTradeMonSpriteCoords[i][0] * 8) + 14,
                                                          (sTradeMonSpriteCoords[i][1] * 8) - 12,
                                                          1,
                                                          GetMonData(mon, MON_DATA_PERSONALITY),
                                                          TRUE);
+            gSprites[sTradeMenuData->partySpriteIds[TRADE_PLAYER][i]].oam.paletteNum = index;
         }
 
         for (i = 0; i < sTradeMenu->partyCounts[TRADE_PARTNER]; i++)
         {
             struct Pokemon *mon = &gEnemyParty[i];
-            sTradeMenu->partySpriteIds[TRADE_PARTNER][i] = CreateMonIcon(GetMonData(mon, MON_DATA_SPECIES_OR_EGG, NULL),
+            struct SpritePalette palette = {.data = paletteData, .tag = 56000 + i + PARTY_SIZE};
+            u32 index;
+            LZDecompressWram(GetMonFrontSpritePal(mon), paletteData);
+            index = LoadSpritePalette(&palette);
+            sTradeMenuData->partySpriteIds[TRADE_PARTNER][i] = CreateMonIcon(GetMonData(mon, MON_DATA_SPECIES_OR_EGG, NULL),
                                                          SpriteCB_MonIcon,
                                                          (sTradeMonSpriteCoords[i + PARTY_SIZE][0] * 8) + 14,
                                                          (sTradeMonSpriteCoords[i + PARTY_SIZE][1] * 8) - 12,
                                                          1,
                                                          GetMonData(mon, MON_DATA_PERSONALITY),
                                                          FALSE);
+            gSprites[sTradeMenuData->partySpriteIds[TRADE_PARTNER][i]].oam.paletteNum = index;
         }
         gMain.state++;
         break;
@@ -892,6 +915,7 @@ static void VBlankCB_TradeMenu(void)
     LoadOam();
     ProcessSpriteCopyRequests();
     TransferPlttBuffer();
+
 }
 
 static void CB_FadeToStartTrade(void)
