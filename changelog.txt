@@ -15,6 +15,7 @@ more pokemon available
 	-evolve trade evos through level up or by using their respective item
 	-feebas can be found on all water tiles in route 119 (voloved)
 	-added chain fishing (ghoulslash)
+	-event items are given when you beat the champion
 
 better running
 	-run indoors
