@@ -2,9 +2,9 @@
 
 Pokemon Polished Emerald is a romhack of Pokémon Emerald which adds modern features and QOL changes. Along with the Physical/Special split and Fairy type, this hack also includes following Pokémon, an entirely new encounter table based on Omega Ruby and Alpha Sapphier, and all sorts of tweaks to make Pokémon Emerald feel like a brand-new release. 
 
-## Changelog
+### Changelog
 
-Modernized battles
+* Modernized battles
 	* fairy type (Lunos)
 	* physical special split (pret wiki)
 	* exp for catching Pokemon (Lunos)
@@ -14,7 +14,7 @@ Modernized battles
 	* update pokemon to match their gen 9 stats
 	* no more low hp beeping
 
-More pokemon available
+* More pokemon available
 	* entirely new encounter table, inspired by ORAS
 	* some national dex pokemon can be found throughout the game
 	* starters can be caught in petalburg, jagged pass, and route 119
@@ -23,13 +23,13 @@ More pokemon available
 	* added chain fishing (pret wiki)
 	* event items are given when you beat the champion
 
-Better running
+* Better running
 	* run indoors
 	* run without running shoes
 	* no more running shoes tutorial
 	* following pokemon (merrp)
 
-Faster menus
+* Faster menus
 	* prompt for reusing repels (ExpoSeed)
 	* keyboard auto-switches to lowercase (Jaizu)
 	* faster text speed (ellabrella)
@@ -37,12 +37,12 @@ Faster menus
 	* using medicine no longer returns you to the bag automatically (ghoulslash)
 	* "move mons" is now the first option in the storage system
 
-New hotkeys
+* New hotkeys
 	* pressing b in a battle moves your cursor to "run" (pret wiki)
 	* pressing select while hovering over a pokemon lets you swap its slot (Lunos)
 	* pressing start while hovering over a pokemon changes its nickname (Shinny456, TheXaman, Lunos, Zadien)
 
-Misc improvements
+* Misc improvements
 	* reusable TMs (paccy, ExpoSeed, surskitty, FieryMewtwo, Lunos)
  	* forgettable HMs (Lunos, thespbgamer, Jaizu)
 	* more bonus premier balls, like in LGPE (pret wiki)
@@ -54,7 +54,7 @@ Misc improvements
 	* larger visibility radius in darkness
 	* stereo sound and set style are now enabled by default
 
-Bugfixes
+* Bugfixes
 	* general bugfixes (pret team)
 	* improved waitforvblank function, saving battery life and increasing fast forward speed (DizzyEggg)
 	* remove move grammar tables, which are unused in the English translation (pret wiki)
