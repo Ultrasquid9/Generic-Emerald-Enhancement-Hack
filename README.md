@@ -50,6 +50,7 @@ Pokemon Polished Emerald is a romhack of Pokémon Emerald which adds modern feat
 	* trainer classes now use different kinds of pokeballs (BuffelSalt)
 	* updated box/party icons to match newer generations (merrp)
 	* slight adjustment to Brendan's script for when you first meet him
+	* Prof. Birch is chased by Poochyena instead of Zigzagoon
 	* tweaked saving text to make sense on both real hardware and emulators
 	* larger visibility radius in darkness
 	* stereo sound and set style are now enabled by default
