@@ -53,4 +53,6 @@ bugfixes
 	-improved waitforvblank function, saving battery life and increasing fast forward speed (DizzyEggg)
 	-remove move grammar tables, which are unused in the English translation (FieryMewtwo)
 	-ground effects are applied when you exit surfing (ghoulslash)
+	-pokemon centers no longer heal eggs (ghoulslash)
+	-fix game slowdown when entering pokemon center (Deokishisu)
 	-allow player to change direction while moving up or down (cbt)
