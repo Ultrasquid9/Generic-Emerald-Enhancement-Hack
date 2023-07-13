@@ -302,7 +302,7 @@ static void UpdatePartyToFieldOrder(void);
 static void MoveCursorToConfirm(void);
 static void HandleChooseMonCancel(u8, s8 *);
 static void HandleChooseMonSelection(u8, s8 *);
-static u16 PartyMenuButtonHandler(s8 *);
+static u16 PartyMenuButtonHandler(u8, s8 *);
 static s8 *GetCurrentPartySlotPtr(void);
 static bool8 IsSelectedMonNotEgg(u8 *);
 static void PartyMenuRemoveWindow(u8 *);
@@ -1272,7 +1272,7 @@ void Task_HandleChooseMonInput(u8 taskId)
     {
         s8 *slotPtr = GetCurrentPartySlotPtr();
 
-        switch (PartyMenuButtonHandler(slotPtr))
+        switch (PartyMenuButtonHandler(taskId, slotPtr))
         {
         case A_BUTTON: // Selected mon
             HandleChooseMonSelection(taskId, slotPtr);
@@ -1469,7 +1469,7 @@ static void CB2_ReturnToPartyMenuFromNicknameScreen(u8 lastAccessedSlot)
 {
     gPaletteFade.bufferTransferDisabled = TRUE;
     gPartyMenu.slotId = lastAccessedSlot;
-    InitPartyMenu(gPartyMenu.menuType, KEEP_PARTY_LAYOUT, gPartyMenu.action, TRUE, PARTY_MSG_NONE, Task_HandleChooseMonInput, gPartyMenu.exitCallback);
+    InitPartyMenu(gPartyMenu.menuType, KEEP_PARTY_LAYOUT, gPartyMenu.action, TRUE, PARTY_MSG_CHOOSE_MON, Task_HandleChooseMonInput, gPartyMenu.exitCallback);
 }
 
 static void ChangePokemonNicknamePartyScreen_CB(void)
@@ -1503,7 +1503,7 @@ static bool8 IsInvalidPartyMenuActionType(u8 partyMenuType)
          || partyMenuType == PARTY_ACTION_REUSABLE_ITEM);
 }
 
-static u16 PartyMenuButtonHandler(s8 *slotPtr)
+static u16 PartyMenuButtonHandler(u8 taskId, s8 *slotPtr)
 {
     s8 movementDir;
 
@@ -1537,14 +1537,16 @@ static u16 PartyMenuButtonHandler(s8 *slotPtr)
         break;
     }
 
-    if (JOY_NEW(START_BUTTON))
+    if (JOY_NEW(START_BUTTON) && !IsInvalidPartyMenuActionType(gPartyMenu.action))
     {
+        if (gPartyMenu.action == PARTY_ACTION_SWITCH)
+            return 0;
         if (!IsTradedMon(&gPlayerParty[gPartyMenu.slotId]))
         {
             PlaySE(SE_SELECT);
             gSpecialVar_0x8004 = *slotPtr;
             sPartyMenuInternal->exitCallback = ChangePokemonNicknamePartyScreen;
-            Task_ClosePartyMenu(0);
+            Task_ClosePartyMenu(taskId);
             return START_BUTTON;
         }
         else
