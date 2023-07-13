@@ -1,6 +1,6 @@
 # Pokémon Polished Emerald (name wip)
 
-Pokemon Polished Emerald is a romhack of Pokémon Emerald which adds modern features and QOL changes. Along with the Physical/Special split and Fairy type, this hack also includes following Pokémon, an entirely new encounter table based on Omega Ruby and Alpha Sapphier, and all sorts of tweaks to make Pokémon Emerald feel like a brand-new release. 
+Pokemon Polished Emerald is a romhack of Pokémon Emerald which adds modern features and QOL changes. Along with the Physical/Special split and Fairy type, this hack also includes following Pokémon, an entirely new encounter table based on Omega Ruby and Alpha Sapphire, and all sorts of tweaks to make Pokémon Emerald feel like a brand-new release. 
 
 ### Changelog
 
