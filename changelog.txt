@@ -21,6 +21,7 @@ better running
 	-run indoors
 	-run without running shoes
 	-no more running shoes tutorial
+	-following pokemon (merrp)
 
 faster menus
 	-prompt for reusing repels (ExpoSeed)
@@ -41,6 +42,7 @@ misc improvements
 	-more bonus premier balls, like in LGPE (BuffelSalt)
 	-improved opponent's pokeball throwing animation (seketsu)
 	-trainer classes now use different kinds of pokeballs (BuffelSalt)
+	-updated box/party icons to match newer generations (merrp)
 	-slight adjustment to Brendan's script for when you first meet him
 	-tweaked saving text to make sense on both real hardware and emulators
 	-name rater can change the names of non-OT pokemon
