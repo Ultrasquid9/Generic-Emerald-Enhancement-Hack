@@ -19,9 +19,10 @@ Pokemon Polished Emerald is a romhack of Pokémon Emerald which adds modern feat
 	* some national dex pokemon can be found throughout the game
 	* starters can be caught in petalburg, jagged pass, and route 119
 	* evolve trade evos through level up or by using their respective item
-	* feebas can be found on all water tiles in route 119 (pret wiki)
-	* added chain fishing (pret wiki)
 	* event items are given when you beat the champion
+	* shiny odds are now 1/4096
+	* added chain fishing (pret wiki)
+	* feebas can be found on all water tiles in route 119 (pret wiki)
 
 * Better running
 	* run indoors
