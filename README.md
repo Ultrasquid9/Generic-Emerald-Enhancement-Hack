@@ -20,7 +20,7 @@ Pokemon Polished Emerald is a romhack of Pokémon Emerald which adds modern feat
 	* starters can be caught in petalburg, jagged pass, and route 119
 	* evolve trade evos through level up or by using their respective item
 	* event items are given when you beat the champion
-	* shiny odds are now 1/4096
+	* shiny odds are now 1/2048
 	* added chain fishing (pret wiki)
 	* feebas can be found on all water tiles in route 119 (pret wiki)
 
@@ -64,3 +64,4 @@ Pokemon Polished Emerald is a romhack of Pokémon Emerald which adds modern feat
 	* pokemon centers no longer heal eggs (ghoulslash)
 	* fix game slowdown when entering pokemon center (pret wiki)
 	* allow player to change direction while moving up or down (cbt)
+	* shiny-locked uncatchable pokemon
