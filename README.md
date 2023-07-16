@@ -28,6 +28,7 @@ Pokemon Polished Emerald is a romhack of Pokémon Emerald which adds modern feat
 	* run indoors
 	* run without running shoes
 	* no more running shoes tutorial
+	* run on the Fortree City bridges
 	* following pokemon (merrp)
 
 * Faster menus
