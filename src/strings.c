@@ -525,7 +525,6 @@ const u8 gText_CancelDecorating[] = _("Cancel decorating?");
 const u8 gText_InUseAlready[] = _("This is in use already.");
 const u8 gText_NoMoreDecorations[] = _("No more decorations can be placed.\nThe most that can be placed are {STR_VAR_1}.");
 const u8 gText_NoMoreDecorations2[] = _("No more decorations can be placed.\nThe most that can be placed are {STR_VAR_1}.");
-const u8 gText_MustBePlacedOnDesk[] = _("This can't be placed here.\nIt must be on a Desk, etc."); // Unused
 const u8 gText_CantPlaceInRoom[] = _("This decoration can't be placed in\nyour own room.");
 const u8 gText_CantThrowAwayInUse[] = _("This decoration is in use.\nIt can't be thrown away.");
 const u8 gText_DecorationWillBeDiscarded[] = _("This {STR_VAR_1} will be discarded.\nIs that okay?");

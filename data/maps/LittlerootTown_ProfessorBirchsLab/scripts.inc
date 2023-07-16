@@ -930,7 +930,7 @@ LittlerootTown_ProfessorBirchsLab_Text_TakeYourTimeAllInvaluable:
 @ Unused
 LittlerootTown_ProfessorBirchsLab_Text_PickedFinePokemon:
 	.string "PROF. BIRCH: I see!\n"
-	.string "You picked a fine POKéMON!$"
+	.string "You picked a fine Pokémon!$"
 
 LittlerootTown_ProfessorBirchsLab_Text_ReceivedJohtoStarter:
 	.string "{PLAYER} received the {STR_VAR_1}\n"
