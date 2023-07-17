@@ -2,6 +2,25 @@
 
 Pokemon Polished Emerald is a romhack of Pokémon Emerald which adds modern features and QOL changes. Along with the Physical/Special split and Fairy type, this hack also includes following Pokémon, an entirely new encounter table based on Omega Ruby and Alpha Sapphire, and all sorts of tweaks to make Pokémon Emerald feel like a brand-new release. 
 
+## Features
+
+* Modernized battles, like gen 6+!
+* Entirely new encounter table based on ORAS!
+* Following Pokemon!
+* Removed the random all-caps words in sentences!
+* Plenty of bugfixes and QOL features!
+* And more!
+
+## Download
+
+Step 1: Legally aquire a ROM file for **Pokemon Emerald**.
+
+Step 2: go to the [latest release](https://github.com/Ultrasquid9/Pokeemerald-Ultrasquid9-Hacks/releases) and download **pokepolishedemerald.bps**.
+
+Step 3: Patch your ROM file using [RomPatcher.js](https://www.marcrobledo.com/RomPatcher.js/).
+
+Step 4: Play your newly-patched game with your preferred emulator (I personally recommend [mGBA](https://mgba.io/)), a GBA flashcart, or a hacked 3DS. 
+
 ### Changelog
 
 * Modernized battles
