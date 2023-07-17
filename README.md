@@ -21,7 +21,7 @@ Step 3: Patch your ROM file using [RomPatcher.js](https://www.marcrobledo.com/Ro
 
 Step 4: Play your newly-patched game with your preferred emulator (I personally recommend [mGBA](https://mgba.io/)), a GBA flashcart, or a hacked 3DS. 
 
-### Changelog
+### All Changes
 
 * Modernized battles
 	* fairy type (Lunos)
