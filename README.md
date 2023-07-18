@@ -29,6 +29,7 @@ Step 4: Play your newly-patched game with your preferred emulator (I personally 
 	* PSS icons shown in battle (Jaizu)
 	* exp for catching Pokemon (Lunos)
 	* faster hp drain (pret wiki)
+	* improve AI switching (Mkol103, devolov)
 	* port of Pokeemerald-Expansion learnsets (RHHideout team)
 	* update moves to match their gen 9 stats
 	* update pokemon to match their gen 9 stats
