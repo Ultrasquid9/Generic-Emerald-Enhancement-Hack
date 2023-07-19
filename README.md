@@ -31,6 +31,7 @@ Step 4: Play your newly-patched game with your preferred emulator (I personally 
 	* faster hp drain (pret wiki)
 	* improve the pace of battles (Mkol103)
 	* improve AI switching (Mkol103, devolov)
+	* modern white-out money loss (AsparagusEduardo, lightgod87)
 	* port of Pokeemerald-Expansion learnsets (RHHideout team)
 	* update moves to match their gen 9 stats
 	* update pokemon to match their gen 9 stats
