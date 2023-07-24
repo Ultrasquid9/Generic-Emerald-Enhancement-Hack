@@ -26,7 +26,6 @@ Step 4: Play your newly-patched game with your preferred emulator (I personally 
 * Modernized battles
 	* fairy type (Lunos)
 	* physical special split (pret wiki)
-	* PSS icons shown in battle (Jaizu)
 	* exp for catching Pokemon (Lunos)
 	* faster hp drain (pret wiki)
 	* improve the pace of battles (Mkol103)
