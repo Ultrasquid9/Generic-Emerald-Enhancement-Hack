@@ -9030,7 +9030,7 @@
           "map": "MAP_PETALBURG_CITY",
           "base_label": "gPetalburgCity",
           "water_mons": {
-            "encounter_rate": 1,
+            "encounter_rate": 6,
             "mons": [
               {
                 "min_level": 15,
