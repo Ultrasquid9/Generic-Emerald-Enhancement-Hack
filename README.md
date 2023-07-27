@@ -50,7 +50,7 @@ Step 4: Play your newly-patched game with your preferred emulator (I personally 
 	* run indoors
 	* run without running shoes
 	* no more running shoes tutorial
-	* run on the Fortree City bridges
+	* run on the Fortree City and Pacifidlog Town bridges 
 	* following pokemon (merrp)
 
 * Faster menus
