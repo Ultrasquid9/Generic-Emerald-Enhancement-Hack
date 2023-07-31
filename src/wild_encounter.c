@@ -66,7 +66,6 @@ EWRAM_DATA bool8 gIsSurfingEncounter = 0;
 
 EWRAM_DATA u8 gChainFishingStreak = 0;
 EWRAM_DATA static u16 sLastFishingSpecies = 0;
-EWRAM_DATA bool8 gIsFishingEncounter = FALSE;   //same as in dizzyegg's item expansion repo
 
 #include "data/wild_encounters.h"
 
