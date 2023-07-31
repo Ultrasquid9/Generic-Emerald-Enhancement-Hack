@@ -156,6 +156,7 @@ static void UpdateObjectEventVisibility(struct ObjectEvent *, struct Sprite *);
 static void MakeSpriteTemplateFromObjectEventTemplate(const struct ObjectEventTemplate *, struct SpriteTemplate *, const struct SubspriteTable **);
 static void GetObjectEventMovingCameraOffset(s16 *, s16 *);
 static const struct ObjectEventTemplate *GetObjectEventTemplateByLocalIdAndMap(u8, u8, u8);
+// static void LoadObjectEventPalette(u16);
 static void RemoveObjectEventIfOutsideView(struct ObjectEvent *);
 static void SpawnObjectEventOnReturnToField(u8, s16, s16);
 static void SetPlayerAvatarObjectEventIdAndObjectId(u8, u8);
@@ -170,6 +171,7 @@ static void CameraObject_0(struct Sprite *);
 static void CameraObject_1(struct Sprite *);
 static void CameraObject_2(struct Sprite *);
 static const struct ObjectEventTemplate *FindObjectEventTemplateByLocalId(u8, const struct ObjectEventTemplate *, u8);
+void ClearObjectEventMovement(struct ObjectEvent *, struct Sprite *);
 static void ObjectEventSetSingleMovement(struct ObjectEvent *, struct Sprite *, u8);
 static void SetSpriteDataForNormalStep(struct Sprite *, u8, u8);
 static void InitSpriteForFigure8Anim(struct Sprite *);
@@ -484,8 +486,6 @@ const u8 gInitialMovementTypeFacingDirections[] = {
 #define OBJ_EVENT_PAL_TAG_CASTFORM_RAINY          0x1126
 #define OBJ_EVENT_PAL_TAG_CASTFORM_SNOWY          0x1127
 #define OBJ_EVENT_PAL_TAG_EMOTES                  0x8002
-// Not a real OW palette tag; used for the white flash applied to followers
-#define OBJ_EVENT_PAL_TAG_WHITE                   (OBJ_EVENT_PAL_TAG_NONE - 1)
 #define OBJ_EVENT_PAL_TAG_NONE 0x11FF
 
 #include "data/object_events/object_event_graphics_info_pointers.h"
@@ -4983,6 +4983,7 @@ bool8 MovementType_FollowPlayer_Active(struct ObjectEvent *objectEvent, struct S
       ClearObjectEventMovement(objectEvent, sprite);
       ObjectEventSetSingleMovement(objectEvent, sprite, MOVEMENT_ACTION_ENTER_POKEBALL);
       objectEvent->singleMovementActive = 1;
+      sprite->animCmdIndex = 0; // Needed for animCmdIndex weirdness
       sprite->sTypeFuncId = 2; // movement action sets state to 0
       return TRUE;
     }
@@ -5049,14 +5050,10 @@ bool8 FollowablePlayerMovement_Step(struct ObjectEvent *objectEvent, struct Spri
     ClearObjectEventMovement(objectEvent, sprite);
 
     if (objectEvent->invisible) { // Animate exiting pokeball
-      // Player is jumping, but follower is invisible
-      if (PlayerGetCopyableMovement() == COPY_MOVE_JUMP2) {
-        sprite->sTypeFuncId = 0; // return to shadowing state
-        return FALSE;
-      }
       MoveObjectEventToMapCoords(objectEvent, targetX, targetY);
       ObjectEventSetSingleMovement(objectEvent, sprite, MOVEMENT_ACTION_EXIT_POKEBALL);
       objectEvent->singleMovementActive = 1;
+      sprite->animCmdIndex = 0; // Needed because of weird animCmdIndex stuff
       sprite->sTypeFuncId = 2;
       return TRUE;
     } else if (x == targetX && y == targetY) { // don't move if already in the player's last position
@@ -5495,41 +5492,6 @@ u8 GetDirectionToFace(s16 x, s16 y, s16 targetX, s16 targetY)
         return DIR_NORTH;
 
     return DIR_SOUTH;
-}
-
-// Uses the above, but script accessible, and uses localIds
-bool8 ScrFunc_GetDirectionToFace(struct ScriptContext *ctx) {
-    u16 *var = GetVarPointer(ScriptReadHalfword(ctx));
-    u8 id0 = GetObjectEventIdByLocalId(ScriptReadByte(ctx)); // source
-    u8 id1 = GetObjectEventIdByLocalId(ScriptReadByte(ctx)); // target
-    if (var == NULL)
-        return FALSE;
-    if (id0 >= OBJECT_EVENTS_COUNT || id1 >= OBJECT_EVENTS_COUNT)
-        *var = DIR_NONE;
-    else
-        *var = GetDirectionToFace(
-            gObjectEvents[id0].currentCoords.x,
-            gObjectEvents[id0].currentCoords.y,
-            gObjectEvents[id1].currentCoords.x,
-            gObjectEvents[id1].currentCoords.y);
-    return FALSE;
-}
-
-// Whether following pokemon is also the user of the field move
-// Intended to be called before the field effect itself
-bool8 ScrFunc_IsFollowerFieldMoveUser(struct ScriptContext *ctx) {
-    u16 *var = GetVarPointer(ScriptReadHalfword(ctx));
-    u16 userIndex = gFieldEffectArguments[0]; // field move user index
-    struct Pokemon *follower = GetFirstLiveMon();
-    struct ObjectEvent *obj = GetFollowerObject();
-    if (var == NULL)
-        return FALSE;
-    *var = FALSE;
-    if (follower && obj && !obj->invisible) {
-        u16 followIndex = ((u32)follower - (u32)gPlayerParty) / sizeof(struct Pokemon);
-        *var = userIndex == followIndex;
-    } else
-    return FALSE;
 }
 
 void SetTrainerMovementType(struct ObjectEvent *objectEvent, u8 movementType)
@@ -6647,11 +6609,11 @@ bool8 MovementAction_WalkInPlaceSlowDown_Step0(struct ObjectEvent *objectEvent, 
     return MovementAction_WalkInPlaceSlow_Step1(objectEvent, sprite);
 }
 
-// Update sprite with a palette filled with a solid color
-static u8 LoadFillColorPalette(u16 color, u16 paletteTag, struct Sprite *sprite) {
+// Copy and load objectEvent's palette, but set all opaque colors to white
+static u8 LoadWhiteFlashPalette(struct ObjectEvent *objectEvent, struct Sprite *sprite) {
   u16 paletteData[16];
-  struct SpritePalette dynamicPalette = {.tag = paletteTag, .data = paletteData};
-  CpuFill16(color, paletteData, PLTT_SIZE_4BPP);
+  struct SpritePalette dynamicPalette = {.tag = OBJ_EVENT_PAL_TAG_NONE-1, .data = paletteData};  // TODO: Use a proper palette tag here
+  CpuFill16(RGB_WHITE, paletteData, 32);
   return UpdateSpritePalette(&dynamicPalette, sprite);
 }
 
@@ -6659,13 +6621,11 @@ bool8 MovementAction_ExitPokeball_Step0(struct ObjectEvent *objectEvent, struct 
     u8 direction = gObjectEvents[gPlayerAvatar.objectEventId].facingDirection;
     objectEvent->invisible = FALSE;
     if (TestPlayerAvatarFlags(PLAYER_AVATAR_FLAG_DASH)) { // If player is dashing, the pokemon must come out faster
-        StartSpriteAnimInDirection(objectEvent, sprite, direction, GetMoveDirectionFastestAnimNum(direction) + 4);
-        sprite->data[3] = 8; // duration
-        sprite->data[6] = 0; // fast speed
+      InitMoveInPlace(objectEvent, sprite, direction, GetMoveDirectionFastestAnimNum(direction) + 4, 8);
+      sprite->data[6] = 0; // fast speed
     } else {
-        StartSpriteAnimInDirection(objectEvent, sprite, direction, GetMoveDirectionFastestAnimNum(direction));
-        sprite->data[3] = 16; // duration
-        sprite->data[6] = 1; // slow speed
+      InitMoveInPlace(objectEvent, sprite, direction, GetMoveDirectionFastestAnimNum(direction), 16);
+      sprite->data[6] = 1; // slow speed
     }
     sprite->data[6] |= (direction == DIR_EAST ? 1 : 0) << 4;
     ObjectEventSetGraphicsId(objectEvent, OBJ_EVENT_GFX_ANIMATED_BALL);
@@ -6730,7 +6690,7 @@ bool8 MovementAction_ExitPokeball_Step1(struct ObjectEvent *objectEvent, struct 
     // Set graphics, palette, and affine animation
     } else if ((duration == 0 && sprite->data[3] == 3) || (duration == 1 && sprite->data[3] == 7)) {
       FollowerSetGraphics(objectEvent, objectEvent->extra.mon.species, objectEvent->extra.mon.form, objectEvent->extra.mon.shiny);
-      LoadFillColorPalette(RGB_WHITE, OBJ_EVENT_PAL_TAG_WHITE, sprite);
+      LoadWhiteFlashPalette(objectEvent, sprite);
       // Initialize affine animation
       sprite->affineAnims = sAffineAnims_PokeballFollower;
       sprite->oam.affineMode = ST_OAM_AFFINE_NORMAL;
@@ -6748,8 +6708,7 @@ bool8 MovementAction_ExitPokeball_Step1(struct ObjectEvent *objectEvent, struct 
 
 bool8 MovementAction_EnterPokeball_Step0(struct ObjectEvent *objectEvent, struct Sprite *sprite) {
     u8 direction = objectEvent->facingDirection;
-    StartSpriteAnimInDirection(objectEvent, sprite, direction, GetMoveDirectionFasterAnimNum(direction));
-    sprite->data[3] = 16; // duration
+    InitMoveInPlace(objectEvent, sprite, direction, GetMoveDirectionFasterAnimNum(direction), 16);
     sprite->data[6] = direction == DIR_EAST ? 3 : 2; // affine animation number
     EndFollowerTransformEffect(objectEvent, sprite);
     return MovementAction_EnterPokeball_Step1(objectEvent, sprite);
@@ -6762,7 +6721,7 @@ bool8 MovementAction_EnterPokeball_Step1(struct ObjectEvent *objectEvent, struct
         sprite->data[2] = 2;
         return FALSE;
     } else if (sprite->data[3] == 11) { // Set palette to white & start affine
-      LoadFillColorPalette(RGB_WHITE, OBJ_EVENT_PAL_TAG_WHITE, sprite);
+      LoadWhiteFlashPalette(objectEvent, sprite);
       sprite->affineAnims = sAffineAnims_PokeballFollower;
       sprite->oam.affineMode = ST_OAM_AFFINE_NORMAL;
       InitSpriteAffineAnim(sprite);
