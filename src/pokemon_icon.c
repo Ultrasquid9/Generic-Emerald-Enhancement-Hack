@@ -1217,8 +1217,6 @@ const u8 *GetMonIconTiles(u16 species, bool32 handleDeoxys)
 void TryLoadAllMonIconPalettesAtOffset(u16 offset)
 {
     s32 i;
-    const struct SpritePalette* monIconPalettePtr;
-
     if (offset <= BG_PLTT_ID(16 - ARRAY_COUNT(gMonIconPaletteTable)))
     {
         u16 whitePalette[16];

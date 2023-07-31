@@ -569,7 +569,7 @@ static void CB2_CreateTradeMenu(void)
             u32 index;
             LZDecompressWram(GetMonFrontSpritePal(mon), paletteData);
             index = LoadSpritePalette(&palette);
-            sTradeMenu->partySpriteIds[TRADE_PLAYER][i] = CreateMonIcon(GetMonData(mon, MON_DATA_SPECIES_OR_EGG),
+            sTradeMenuData->partySpriteIds[TRADE_PLAYER][i] = CreateMonIcon(GetMonData(mon, MON_DATA_SPECIES_OR_EGG),
                                                          SpriteCB_MonIcon,
                                                          (sTradeMonSpriteCoords[i][0] * 8) + 14,
                                                          (sTradeMonSpriteCoords[i][1] * 8) - 12,
@@ -577,7 +577,7 @@ static void CB2_CreateTradeMenu(void)
                                                          GetMonData(mon, MON_DATA_PERSONALITY),
                                                          TRUE);
 
-            gSprites[sTradeMenu->partySpriteIds[TRADE_PLAYER][i]].oam.paletteNum = index;
+            gSprites[sTradeMenuData->partySpriteIds[TRADE_PLAYER][i]].oam.paletteNum = index;
         }
 
         for (i = 0; i < sTradeMenu->partyCounts[TRADE_PARTNER]; i++)
@@ -587,14 +587,14 @@ static void CB2_CreateTradeMenu(void)
             u32 index;
             LZDecompressWram(GetMonFrontSpritePal(mon), paletteData);
             index = LoadSpritePalette(&palette);
-            sTradeMenu->partySpriteIds[TRADE_PARTNER][i] = CreateMonIcon(GetMonData(mon, MON_DATA_SPECIES_OR_EGG, NULL),
+            sTradeMenuData->partySpriteIds[TRADE_PARTNER][i] = CreateMonIcon(GetMonData(mon, MON_DATA_SPECIES_OR_EGG, NULL),
                                                          SpriteCB_MonIcon,
                                                          (sTradeMonSpriteCoords[i + PARTY_SIZE][0] * 8) + 14,
                                                          (sTradeMonSpriteCoords[i + PARTY_SIZE][1] * 8) - 12,
                                                          1,
                                                          GetMonData(mon, MON_DATA_PERSONALITY),
                                                          FALSE);
-            gSprites[sTradeMenu->partySpriteIds[TRADE_PARTNER][i]].oam.paletteNum = index;
+            gSprites[sTradeMenuData->partySpriteIds[TRADE_PARTNER][i]].oam.paletteNum = index;
         }
         gMain.state++;
         break;
@@ -772,14 +772,14 @@ static void CB2_ReturnToTradeMenu(void)
             u32 index;
             LZDecompressWram(GetMonFrontSpritePal(mon), paletteData);
             index = LoadSpritePalette(&palette);
-            sTradeMenu->partySpriteIds[TRADE_PLAYER][i] = CreateMonIcon(GetMonData(mon, MON_DATA_SPECIES_OR_EGG, NULL),
+            sTradeMenuData->partySpriteIds[TRADE_PLAYER][i] = CreateMonIcon(GetMonData(mon, MON_DATA_SPECIES_OR_EGG, NULL),
                                                          SpriteCB_MonIcon,
                                                          (sTradeMonSpriteCoords[i][0] * 8) + 14,
                                                          (sTradeMonSpriteCoords[i][1] * 8) - 12,
                                                          1,
                                                          GetMonData(mon, MON_DATA_PERSONALITY),
                                                          TRUE);
-            gSprites[sTradeMenu->partySpriteIds[TRADE_PLAYER][i]].oam.paletteNum = index;
+            gSprites[sTradeMenuData->partySpriteIds[TRADE_PLAYER][i]].oam.paletteNum = index;
         }
 
         for (i = 0; i < sTradeMenu->partyCounts[TRADE_PARTNER]; i++)
@@ -789,14 +789,14 @@ static void CB2_ReturnToTradeMenu(void)
             u32 index;
             LZDecompressWram(GetMonFrontSpritePal(mon), paletteData);
             index = LoadSpritePalette(&palette);
-            sTradeMenu->partySpriteIds[TRADE_PARTNER][i] = CreateMonIcon(GetMonData(mon, MON_DATA_SPECIES_OR_EGG, NULL),
+            sTradeMenuData->partySpriteIds[TRADE_PARTNER][i] = CreateMonIcon(GetMonData(mon, MON_DATA_SPECIES_OR_EGG, NULL),
                                                          SpriteCB_MonIcon,
                                                          (sTradeMonSpriteCoords[i + PARTY_SIZE][0] * 8) + 14,
                                                          (sTradeMonSpriteCoords[i + PARTY_SIZE][1] * 8) - 12,
                                                          1,
                                                          GetMonData(mon, MON_DATA_PERSONALITY),
                                                          FALSE);
-            gSprites[sTradeMenu->partySpriteIds[TRADE_PARTNER][i]].oam.paletteNum = index;
+            gSprites[sTradeMenuData->partySpriteIds[TRADE_PARTNER][i]].oam.paletteNum = index;
         }
         gMain.state++;
         break;
