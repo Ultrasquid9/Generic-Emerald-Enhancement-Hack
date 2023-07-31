@@ -273,7 +273,7 @@ u16 CreateMonPicSprite_Affine(u16 species, u32 otId, u32 personality, u8 flags, 
     return spriteId;
 }
 
-static u16 FreeAndDestroyPicSpriteInternal(u16 spriteId, bool8 clearPalette)
+static u16 FreeAndDestroyPicSpriteInternal(u16 spriteId)
 {
     u8 i;
     u8 *framePics;
@@ -289,7 +289,7 @@ static u16 FreeAndDestroyPicSpriteInternal(u16 spriteId, bool8 clearPalette)
 
     framePics = sSpritePics[i].frames;
     images = sSpritePics[i].images;
-    if (clearPalette && sSpritePics[i].paletteTag != TAG_NONE)
+    if (sSpritePics[i].paletteTag != TAG_NONE)
         FreeSpritePaletteByTag(GetSpritePaletteTagByPaletteNum(gSprites[spriteId].oam.paletteNum));
     DestroySprite(&gSprites[spriteId]);
     Free(framePics);
@@ -334,12 +334,7 @@ u16 CreateMonPicSprite_HandleDeoxys(u16 species, u32 otId, u32 personality, bool
 
 u16 FreeAndDestroyMonPicSprite(u16 spriteId)
 {
-    return FreeAndDestroyPicSpriteInternal(spriteId, TRUE);
-}
-
-u16 FreeAndDestroyMonPicSpriteNoPalette(u16 spriteId)
-{
-      return FreeAndDestroyPicSpriteInternal(spriteId, FALSE);
+    return FreeAndDestroyPicSpriteInternal(spriteId);
 }
 
 // Unused
@@ -361,7 +356,7 @@ u16 CreateTrainerPicSprite(u16 species, bool8 isFrontPic, s16 x, s16 y, u8 palet
 
 u16 FreeAndDestroyTrainerPicSprite(u16 spriteId)
 {
-    return FreeAndDestroyPicSpriteInternal(spriteId, TRUE);
+    return FreeAndDestroyPicSpriteInternal(spriteId);
 }
 
 // Unused

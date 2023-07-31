@@ -916,10 +916,11 @@ const struct SpritePalette gMonIconPaletteTable[] =
     { gMonIconPalettes[1], POKE_ICON_BASE_PAL_TAG + 1 },
     { gMonIconPalettes[2], POKE_ICON_BASE_PAL_TAG + 2 },
 
-    // There are only 3 actual palettes, but we repurpose the last 3 as duplicates for the new icon system
-    { gMonIconPalettes[3 % 3], POKE_ICON_BASE_PAL_TAG + 3 },
-    { gMonIconPalettes[4 % 3], POKE_ICON_BASE_PAL_TAG + 4 },
-    { gMonIconPalettes[5 % 3], POKE_ICON_BASE_PAL_TAG + 5 },
+// There are only 3 actual palettes. The following are unused
+// and don't point to valid data.
+    { gMonIconPalettes[3], POKE_ICON_BASE_PAL_TAG + 3 },
+    { gMonIconPalettes[4], POKE_ICON_BASE_PAL_TAG + 4 },
+    { gMonIconPalettes[5], POKE_ICON_BASE_PAL_TAG + 5 },
 };
 
 static const struct OamData sMonIconOamData =
@@ -1025,8 +1026,6 @@ static const u16 sSpriteImageSizes[3][4] =
     },
 };
 
-// Note: If you want to use this in your hack, be aware you must allocate palette slots for each icon,
-// i.e via AllocSpritePalette, and set the sprite's palette with SetMonIconPalette
 u8 CreateMonIcon(u16 species, void (*callback)(struct Sprite *), s16 x, s16 y, u8 subpriority, u32 personality, bool32 handleDeoxys)
 {
     u8 spriteId;
@@ -1050,21 +1049,9 @@ u8 CreateMonIcon(u16 species, void (*callback)(struct Sprite *), s16 x, s16 y, u
     return spriteId;
 }
 
-u8 SetMonIconPalette(struct Pokemon *mon, struct Sprite *sprite, u8 paletteNum) {
-  if (paletteNum < 16) {
-    LoadCompressedPalette(GetMonFrontSpritePal(mon), paletteNum*16 + 0x100, 32);
-    if (sprite)
-      sprite->oam.paletteNum = paletteNum;
-  }
-  return paletteNum;
-}
-
-// Only used with mail and mystery event, which cannot really store a bit for a shiny pokemon,
-// so we just load the palette into the proper slot by species
 u8 CreateMonIconNoPersonality(u16 species, void (*callback)(struct Sprite *), s16 x, s16 y, u8 subpriority, bool32 handleDeoxys)
 {
     u8 spriteId;
-    u32 index = IndexOfSpritePaletteTag(POKE_ICON_BASE_PAL_TAG + gMonIconPaletteIndices[species]);
     struct MonIconSpriteTemplate iconTemplate =
     {
         .oam = &sMonIconOamData,
@@ -1074,9 +1061,6 @@ u8 CreateMonIconNoPersonality(u16 species, void (*callback)(struct Sprite *), s1
         .callback = callback,
         .paletteTag = POKE_ICON_BASE_PAL_TAG + gMonIconPaletteIndices[species],
     };
-
-    if (index < 16)
-      LoadCompressedPalette(GetMonSpritePalFromSpeciesAndPersonality(species, 0, 0xFFFF), index*16 + 0x100, 32);
 
     iconTemplate.image = GetMonIconTiles(species, handleDeoxys);
     spriteId = CreateMonIconSprite(&iconTemplate, x, y, subpriority);
@@ -1138,7 +1122,6 @@ u16 GetIconSpeciesNoPersonality(u16 species)
     }
 }
 
-// usage in menu.c is unused
 const u8 *GetMonIconPtr(u16 species, u32 personality, bool32 handleDeoxys)
 {
     return GetMonIconTiles(GetIconSpecies(species, personality), handleDeoxys);
@@ -1213,26 +1196,19 @@ const u8 *GetMonIconTiles(u16 species, bool32 handleDeoxys)
     return iconSprite;
 }
 
-// Loads pokemon icon palettes into the BG palettes, in the PC. Changed to always load an all-white palette.
 void TryLoadAllMonIconPalettesAtOffset(u16 offset)
 {
     s32 i;
     if (offset <= BG_PLTT_ID(16 - ARRAY_COUNT(gMonIconPaletteTable)))
     {
-        u16 whitePalette[16];
-        for (i = 0; i < 16; i++)
-          whitePalette[i] = 0xFFFF;
-        monIconPalettePtr = gMonIconPaletteTable;
-        for(i = ARRAY_COUNT(gMonIconPaletteTable) - 1; i >= 0; i--)
+        for (i = 0; i < (int)ARRAY_COUNT(gMonIconPaletteTable); i++)
         {
-            LoadPalette(&whitePalette[0], offset, 0x20);
-            offset += 0x10;
-            monIconPalettePtr++;
+            LoadPalette(gMonIconPaletteTable[i].data, offset, PLTT_SIZE_4BPP);
+            offset += 16;
         }
     }
 }
 
-// Unused as of icon upgrade
 u8 GetValidMonIconPalIndex(u16 species)
 {
     if (species > NUM_SPECIES)
@@ -1245,7 +1221,6 @@ u8 GetMonIconPaletteIndexFromSpecies(u16 species)
     return gMonIconPaletteIndices[species];
 }
 
-// Unused as of icon upgrade
 const u16 *GetValidMonIconPalettePtr(u16 species)
 {
     if (species > NUM_SPECIES)
