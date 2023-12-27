@@ -75,6 +75,7 @@ Step 4: Play your newly-patched game with your preferred emulator (I personally 
 	* updated box/party icons to match newer generations (merrp)
 	* Removed all the RANDOM CAPITAL LETTERS (Wyrserth, Lunos)
 	* slight adjustment to Brendan's script for when you first meet him
+	* slight adjustment to Birch's intro script
 	* Prof. Birch is chased by Poochyena instead of Zigzagoon
 	* tweaked saving text to make sense on both real hardware and emulators
 	* larger visibility radius in darkness
