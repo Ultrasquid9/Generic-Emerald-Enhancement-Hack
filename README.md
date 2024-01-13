@@ -15,7 +15,7 @@ Pokemon Polished Emerald is a romhack of Pokémon Emerald which adds modern feat
 
 Step 1: Legally aquire a ROM file for **Pokemon Emerald**.
 
-Step 2: go to the [latest release](https://github.com/Ultrasquid9/Pokeemerald-Ultrasquid9-Hacks/releases) and download **pokepolishedemerald.bps**.
+Step 2: go to the [latest release](https://github.com/Ultrasquid9/Pokeemerald-Ultrasquid9-Hacks/releases) and download `pokepolishedemerald.bps`.
 
 Step 3: Patch your ROM file using [RomPatcher.js](https://www.marcrobledo.com/RomPatcher.js/).
 
